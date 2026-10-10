@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beni Affet :(</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #ffe6e6;
+            overflow: hidden; /* Ekranın kaymasını engeller */
+        }
+        
+        /* Ana İçerik Alanı */
+        .content-box {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        h1 {
+            color: #d32f2f;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        /* Buton Alanı */
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100px;
+        }
+
+        button {
+            font-size: 1.2rem;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        #btnEvet {
+            background-color: #4caf50;
+            color: white;
+            margin-right: 20px;
+            z-index: 10;
+        }
+
+        #btnHayir {
+            background-color: #f44336;
+            color: white;
+            position: absolute;
+            transition: left 0.1s ease, top 0.1s ease;
+        }
+
+        /* Sonuç Ekranı (İlk başta gizli) */
+        #sonucEkrani {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        #sonucEkrani h2 {
+            color: #c2185b;
+            font-size: 2.8rem;
+            margin-top: 20px;
+        }
+
+        /* Kocaman Atan Kalp Animasyonu */
+        .kalp {
+            font-size: 120px; /* Kalbin büyüklüğü */
+            color: #e91e63;
+            animation: kalpAtisi 0.8s infinite alternate;
+            display: inline-block;
+        }
+
+        @keyframes kalpAtisi {
+            0% {
+                transform: scale(1);
+            }
+            100% {
+                transform: scale(1.25); /* %25 büyüyüp küçülür */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- İlk Soru Ekranı -->
+    <div id="soruEkrani" class="content-box">
+        <h1>Beni affediyor musun? 🥺</h1>
+        <div class="container">
+            <button id="btnEvet" onclick="affedildi()">Evet</button>
+            <button id="btnHayir" onmouseover="kac()" onclick="kac()">Hayır</button>
+        </div>
+    </div>
+
+    <!-- Evet'e Basınca Açılacak Ekran -->
+    <div id="sonucEkrani">
+        <div class="kalp">❤️</div>
+        <h2>Teşekkür ederimmm, Seni Çok Seviyorum! 🥰</h2>
+    </div>
+
+    <script>
+        const btnHayir = document.getElementById('btnHayir');
+        const btnEvet = document.getElementById('btnEvet');
+        const soruEkrani = document.getElementById('soruEkrani');
+        const sonucEkrani = document.getElementById('sonucEkrani');
+
+        // Sayfa yüklendiğinde Hayır butonunu Evet'in yanına konumlandır
+        window.onload = function() {
+            const evetKonum = btnEvet.getBoundingClientRect();
+            btnHayir.style.left = (evetKonum.right + 20) + 'px';
+            btnHayir.style.top = evetKonum.top + 'px';
+        }
+
+        // Hayır butonunun kaçma fonksiyonu
+        function kac() {
+            const xMax = window.innerWidth - btnHayir.clientWidth - 40;
+            const yMax = window.innerHeight - btnHayir.clientHeight - 40;
+
+            const rastgeleX = Math.floor(Math.random() * (xMax - 40 + 1)) + 40;
+            const rastgeleY = Math.floor(Math.random() * (yMax - 40 + 1)) + 40;
+
+            btnHayir.style.left = rastgeleX + 'px';
+            btnHayir.style.top = rastgeleY + 'px';
+        }
+
+        // Evet butonuna basıldığında tetiklenen fonksiyon
+        function affedildi() {
+            soruEkrani.style.display = 'none'; // Soru ve butonları gizle
+            sonucEkrani.style.display = 'flex'; // Kalp ve yeni yazıyı göster
+        }
+    </script>
+
+</body>
+</html>
